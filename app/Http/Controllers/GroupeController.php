@@ -16,6 +16,12 @@ class GroupeController extends Controller
     {
         $groupes = Groupe::all();
         return view('groupes.index', compact('groupes'));
+        // filiere et stagiaire la nom de relation
+        // $groupes = Groupe::find(1);
+        // $filieres=$groupes->filiere;
+        // $stagaire=$groupes->stagiaire;
+
+        // return response()->json($groupes);
     }
 
     /**
@@ -36,8 +42,22 @@ class GroupeController extends Controller
             'libelle' => 'required',
             'filiere_id' => 'required',
         ]));
+
+        $request->validate([
+            'libelle' => 'required|alpha_num|unique:groupes,libelle',
+            'filiere_id' => 'required',
+        ],
+        [
+            'libelle.required' => 'champ Obligatoire',
+            'libelle.alpha_num' => 'champ doit etre alpha numerique',
+            'libelle.unique' => 'ce groupe est deja exist',
+            'filiere_id.required' => 'champ Obligatoire',
+        ]
+    );
         Groupe::create($data);
-        return redirect()->route('groupes.index');
+        return redirect()->route('groupes.index')->with('success', 'Groupe bien ajoute');
+       
+      
     }
 
     /**
@@ -46,8 +66,11 @@ class GroupeController extends Controller
     public function show(string $id)
     {
         $groupe = Groupe::find($id);
-        $nom_filiere = Filiere::find($groupe->filiere_id)->titre;
-        return view('groupes.show', compact('groupe','nom_filiere'));
+        $filiere=$groupe->filiere;
+        $nom_filiere=$filiere->titre;
+        $stagiaires=$groupe->stagiaire;
+        // $nom_filiere = Filiere::find($groupe->filiere_id)->titre;
+        return view('groupes.show', compact('groupe','nom_filiere','stagiaires'));
     }
 
     /**

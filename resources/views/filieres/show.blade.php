@@ -30,6 +30,28 @@
 
             </tbody>
       </table>
+      <div>
+            <h2>Liste des groupes:</h2>
+            <table class="table table-bordered">
+            <thead>
+                  <tr>
+                        <th>libelle</th>
+                       
+                  </tr>
+            </thead>
+            <tbody>
+                  @foreach($filiere->groupes as $groupe)
+                  <tr>
+                        <td>{{$groupe->libelle}}</td>
+                        
+                        
+                  </tr>
+
+                  @endforeach
+            </tbody>
+      </table>
+
+      </div>
 </div>
 @endsection
 @section('back')

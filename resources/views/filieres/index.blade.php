@@ -8,13 +8,18 @@
                   <div class="table-title">
                         <div class="row">
                               <div class="col-sm-8">
-                                    <h2><b>Filieres</b> List</h2>
+                                    <h2>Liste de <b>Filieres</b></h2>
                               </div>
                               <div class="col-sm-4">
                                     <a href="{{route('filieres.create')}}" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</a>
                               </div>
                         </div>
                   </div>
+                  @if (session('success'))
+                        <div class="alert alert-success">
+                              <span>{{ session('success') }}</span>
+                        </div>
+                  @endif
                   <table class="table table-bordered">
                         <thead>
                               <tr>

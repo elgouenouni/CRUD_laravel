@@ -9,5 +9,17 @@ class Groupe extends Model
 {
     use HasFactory;
     protected $fillable = ['libelle', 'filiere_id'];
+    public function filiere(){
+        return $this->belongsTo(Filiere::class);
+    }
+
+    public function stagiaire(){
+        return $this->hasMany(Stagiaire::class);
+    }
+    public function formateurs(){
+        return $this->belongsToMany(Formateur::class)->withPivot('annee_formation');
+    }
+
+
 
 }

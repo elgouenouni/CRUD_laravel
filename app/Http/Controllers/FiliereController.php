@@ -11,6 +11,10 @@ class FiliereController extends Controller
     {
         $filieres = Filiere::all();
         return view('filieres.index', compact('filieres'));
+        //  $filieres = Filiere::find(1);
+        // $groupe=$filieres->groupes;
+        // dd($groupe);
+        // return response()->json($filieres);0
     }
 
     public function create()
@@ -20,20 +24,26 @@ class FiliereController extends Controller
 
     public function store(Request $request)
     {
-        // $data = $request->validate(([
-        //     'titre' => 'required',
-        //     'description' => 'required',
-        // ]));
+        $data = $request->validate([
+            'titre' => 'required|unique:filieres,titre',
+            'description' => 'required',
+        ],
+        [
+            'titre.required' => 'champ Obligatoire',
+            'titre.unique' => 'titre deja exist',
+            'description.required' => 'champ Obligatoire',
+        ]);
         
-        $titre = $request->input('titre');
-        $description = $request->input('description');
+        // $titre = $request->input('titre');
+        // $description = $request->input('description');
 
 
-        Filiere::create([
-                            'titre' =>$titre,
-                            'description' =>$description,
-                        ]);
-        return redirect()->route('filieres.index');
+        // Filiere::create([
+        //                     'titre' =>$titre,
+        //                     'description' =>$description,
+        //                 ]);
+        Filiere::create($data);
+     return redirect()->route('filieres.index')->with('success', 'Filiere bien ajoute');
     }
 
     public function show(string $id)

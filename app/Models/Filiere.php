@@ -9,5 +9,8 @@ class Filiere extends Model
 {
     use HasFactory;
     protected $fillable = ['titre', 'description'];
+    public function groupes(){
+        return $this->hasMany(Groupe::class);
+    }
 
 }

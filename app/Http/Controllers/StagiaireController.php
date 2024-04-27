@@ -15,6 +15,8 @@ class StagiaireController extends Controller
     {
         $stagiaires = Stagiaire::all();
         return view('stagiaires.index', compact('stagiaires'));
+        // $stagiaires= Groupe::find(1);
+        // $filieres=$stagiaires->filiere;
     }
 
     /**
@@ -31,17 +33,35 @@ class StagiaireController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate(([
-            'nom' => 'required',
-            'prenom' => 'required',
-            'genre' => 'required',
-            'date_naissance' => 'date',
-            'moyenne' => 'required|numeric|between:0.00,20',
-            'groupe_id' => 'required',
-        ]));
+        $data = $request->validate([
+                'nom' => 'required|alpha',
+                'prenom' => 'required|alpha_num',
+                'genre' => 'required|in:M,F',
+                'date_naissance' => 'required|date',
+                'moyenne' => 'required|numeric|between:0,20',
+                'groupe_id' => 'required',
+        ],[
+            'nom.required' => 'champ Obligatoire',
+            'nom.alpha' => 'champ doit etre une chaine de caractaire',
+            'prenom.required' => 'champ Obligatoire',
+            'prenom.alpha_num' => 'champ doit etre alpha numerique',
+            'genre.required' => 'champ Obligatoire',
+            'genre.in' => 'champ doit etre soit F ou M',
+            'date_naissance.required' => 'champ Obligatoire',
+            'date_naissance.date' => 'champ doit etre une date',
+            'moyenne.required' => 'champ Obligatoire',
+            'moyenne.numeric' => 'champ doit etre numerique',
+            'moyenne.between' => 'champ doit etre entre 0 et 20',
+            'groupe_id.required' => 'champ Obligatoire',
+            
+
+        ]
+
+    );
         // dd($data);
         Stagiaire::create($data);
-        return redirect()->route('stagiaires.index');
+        return redirect()->route('stagiaires.index')->with('success','Le stagiaire a été ajouté avec succès.');
+        
     }
 
     /**
@@ -50,7 +70,8 @@ class StagiaireController extends Controller
     public function show(string $id)
     {
         $stagiaire = Stagiaire::find($id);
-        $nom_groupe = Groupe::find($stagiaire->groupe_id)->libelle;
+        // $nom_groupe = Groupe::find($stagiaire->groupe_id)->libelle;
+        $nom_groupe =$stagiaire->groupe->libelle;
         return view('stagiaires.show', compact('stagiaire','nom_groupe'));
     }
 

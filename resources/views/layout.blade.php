@@ -6,7 +6,6 @@
       <title>@yield('title')</title>
       <link rel="stylesheet" href="{{asset('bootstrap/bootstrap.min.css')}}">
       <link rel="stylesheet" href="{{asset('style.css')}}">
-
        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -42,6 +41,9 @@
                                           <li><a href="{{route('filieres.index')}}">Filieres</a></li>
                                           <li><a href="{{route('groupes.index')}}">Groupes</a></li>
                                           <li><a href="{{route('stagiaires.index')}}">Stagiaires</a></li>
+                                          <li><a href="{{route('formateurs.index')}}">formateurs</a></li>
+                                          <li><a href="{{route('Recherche')}}">Recherche</a></li>
+                                          <li><a href="{{route('formateursGroupes.index')}}">Affectation formateur Groupe</a></li>
                                     </ul>
                               </div>
                         </nav>
