@@ -14,8 +14,8 @@ class RechercheController extends Controller
         $resultats = Groupe::join('stagiaires','groupes.id','=','stagiaires.groupe_id')
         ->join('formateur_groupe','groupes.id','=','formateur_groupe.groupe_id')
         ->select('stagiaires.nom','stagiaires.prenom','groupes.libelle','formateur_groupe.annee_formation')
-        ->orderby('groupes.libelle')
-        ->orderby('formateur_groupe.annee_formation')
+        // ->orderby('groupes.libelle')
+        // ->orderby('formateur_groupe.annee_formation')
         ->get();
         // return response()->json($resultat);
         // dd($resultat);

@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 use App\models\Filiere;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class FiliereController extends Controller
 {
     public function index()
     {
+        $user = Auth::user();
         $filieres = Filiere::all();
-        return view('filieres.index', compact('filieres'));
+        return view('filieres.index', compact('filieres','user'));
         //  $filieres = Filiere::find(1);
         // $groupe=$filieres->groupes;
         // dd($groupe);

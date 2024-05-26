@@ -20,6 +20,11 @@
                               <span>{{ session('success') }}</span>
                         </div>
                   @endif
+                  @if (Auth::check())
+                        <p>Hello, {{ Auth::user()->name }}!</p>
+                  @else
+                        <p>You are not logged in.</p>
+                  @endif
                   <table class="table table-bordered">
                         <thead>
                               <tr>

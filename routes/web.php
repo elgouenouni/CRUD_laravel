@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Athentification;
 use App\Http\Controllers\FormateurController;
 use App\Http\Controllers\formateurGroupeController;
 use App\Http\Controllers\RechercheController;
@@ -22,7 +23,9 @@ use App\Http\Controllers\StagiaireController;
 
 Route::get('/', function () {
     return view('layout');
-});
+})->name('home')->middleware('auth');
+
+Route::middleware('auth')->group(function () {
 
 Route::resource('filieres',FiliereController::class);
 Route::resource('groupes',GroupeController::class);
@@ -79,5 +82,16 @@ Route::post('/formateursGroupes/store', [FormateurGroupeController::class, 'affe
  Route::delete('/formateursGroupes/{id}', [FormateurGroupeController::class, 'destroy'])->name('formateursGroupes.destroy');
  Route::get('/formateursGroupes/{id}/edit',[FormateurGroupeController::class,'edit'])->name('formateursGroupes.edit');
 Route::put('/formateursGroupes/update/{affectation}',[FormateurGroupeController::class,'update'])->name('formateursGroupes.update');
+});
 
 // destroy
+// Route::view('/home','middleware.home');
+// Route::post('/page_secrete',function(){
+//     return view('middleware.page_secrete');
+// })->name('page_secrete')->middleware('checkage');
+
+Route::get('/login', [Athentification::class, 'loginView'])->name('auth.loginView');
+Route::get('/registre', [Athentification::class, 'registerView'])->name('auth.registerView');
+
+Route::post('/login', [Athentification::class, 'login'])->name('auth.login');
+Route::post('/registre', [Athentification::class, 'register'])->name('auth.register');
